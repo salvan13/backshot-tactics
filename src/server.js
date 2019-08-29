@@ -35,6 +35,7 @@ module.exports = {
           });
           if(e.name === 'state' && e.data.state === 'game-over') {
             let evt = e.data;
+            console.log(`Game Over: ${evt.data.winner.name} won against ${evt.data.loser.name}. ${evt.data.reason || ''}`);
             let ranking = await storage.get('ranking', []);
             let winner = ranking.find(e => e.n === evt.data.winner.name);
             if(!winner) {

@@ -188,6 +188,9 @@ document.addEventListener('DOMContentLoaded', () => {
           setTimeout(() => {
             dmg.remove();
           }, 500);
+          if(e.fromBack) {
+            speak('backshot!');
+          }
         }, 1000);
       }, 800);
     });
@@ -320,5 +323,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     anode.connect(actx.destination);
   }
+
+  function speak(txt) {
+    if(window.SpeechSynthesisUtterance && window.speechSynthesis) {
+      let s = new SpeechSynthesisUtterance(txt);
+      s.pitch = 0.01;
+      s.rate = 0.5;
+      speechSynthesis.speak(s);
+    }
+  };
 
 });

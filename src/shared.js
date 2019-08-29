@@ -1,6 +1,6 @@
 let DIRS = ['up', 'down', 'left', 'right'];
 
-let GAME_SPEED = 0; /* 0 to 1000 */
+let GAME_SPEED = 200; /* 0 to 1000 */
 
 let rand = (max = 100, min = 0) => Math.floor(Math.random() * (max - min + 1) + min);
 

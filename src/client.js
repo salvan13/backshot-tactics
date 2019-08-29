@@ -137,15 +137,19 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('new-pos', e);
       let c = field.querySelector('#' + e.char.id);
       c.focus();
-      c.style.setProperty('--x', e.char.pos.x);
-      c.style.setProperty('--y', e.char.pos.y);
       c.tabIndex = e.char.pos.y * 100 + e.char.pos.x + 1;
       c.dataset.dir = e.char.dir;
       play('new-pos');
+      for(let m = 0; m < e.moves.length; m++) {
+        setTimeout(() => {
+          c.style.setProperty('--x', e.moves[m].x);
+          c.style.setProperty('--y', e.moves[m].y);
+        }, 400 * m);
+      }
       setTimeout(() => {
         c.querySelector('.dirs .next').classList.remove('next');
         c.querySelectorAll('.dirs > *')[e.char.nextDir].classList.add('next');  
-      }, 2000);
+      }, 4000);
     });
 
     socket.on('attack', (e) => {

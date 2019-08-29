@@ -12,7 +12,7 @@ class Char {
     this.owner = null;
     this.pos = cfg.pos;
     this.hp = 100;
-    this.directions = new Array(4).fill(0).map(() => ({dir: pick(DIRS), size: 3}));
+    this.directions = new Array(4).fill(0).map(() => ({dir: pick(DIRS), size: 4}));
     this.nextDir = 0;
     this.dir = pick(DIRS);
   }
@@ -144,14 +144,19 @@ class Game {
         newPos = {...pos, y: pos.y + 1};
         break;
     }
-    if(this.isValidPos(newPos)) {
-      return newPos;
+    if(newPos.x < 0) {
+      newPos.x = this.field.width - 1;
     }
-    return null;
-  }
-
-  isValidPos(pos) {
-    return pos.x >= 0 && pos.y >= 0 && pos.x < this.field.width && pos.y < this.field.height;
+    if(newPos.y < 0) {
+      newPos.y = this.field.height - 1;
+    }
+    if(newPos.x >= this.field.width) {
+      newPos.x = 0;
+    }
+    if(newPos.y >= this.field.height) {
+      newPos.y = 0;
+    }
+    return newPos;
   }
 
   getPlayer(pid) {
@@ -217,38 +222,37 @@ class Game {
       // move
       let size = direction.size;
       let newPos;
+      let moves = [];
       //console.log('prev pos', char.pos);
       //console.log('direction', direction);
       while(size--) {
         let nextPos = this.getNewPos(newPos || char.pos, direction.dir);
-        if(!nextPos) {
-          //console.log('stop, no nextPos');
-          break;
-        }
         if(this.getInPos(nextPos)) {
           //console.log('stop', 'pos is occupied by', this.getInPos(nextPos));
           break;
         } else {
           newPos = nextPos;
+          moves.push(nextPos);
         }
       }
       if(newPos) {
         char.pos = newPos;
       }
       char.dir = direction.dir;
-      this.emit('new-pos', {char});
+      this.emit('new-pos', {char, moves});
     }
+
+    await sleep(3);
 
     // find the nearest opp
     let enemy = this.getNearestEnemy(char);
 
     // attack
     let fromBack = isFromBack(char.pos, enemy.pos, enemy.dir);
-    let damage = 2 * dist(char.pos, enemy.pos) * (fromBack ? 3 : 1);
+    let damage = 3 * dist(char.pos, enemy.pos) * (fromBack ? 3 : 1);
 
     enemy.hp = Math.max(enemy.hp - damage, 0);
 
-    await sleep(1);
     this.emit('attack', {
       char,
       enemy,

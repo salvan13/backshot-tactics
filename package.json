@@ -9,7 +9,8 @@
     "start": "node index.js",
     "dev": "nodemon --inspect index.dev.js",
     "test-game": "node test-game.js",
-    "test": "mocha test"
+    "test": "mocha test",
+    "postinstall": "node test-game.js && node build.js"
   },
   "keywords": [
     "js13kgames",

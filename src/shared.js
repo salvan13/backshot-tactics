@@ -10,7 +10,7 @@ let shuffle = list => list.map(x => ({value: x, sort: rand()})).sort((a, b) => a
 
 let id = (prefix = 'x') => prefix + (id[prefix] >= 0 ? ++id[prefix] : (id[prefix] = 0));
 
-let sleep = (times = 1) => new Promise(resolve => setTimeout(resolve, (1000 - GAME_SPEED) * times));
+let sleep = (times = 1) => new Promise(resolve => setTimeout(resolve, Math.round((1000 - GAME_SPEED) * times)));
 
 let dist = (a, b) => Math.abs(a.x - b.x) + Math.abs(a.y - b.y);
 

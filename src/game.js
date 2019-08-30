@@ -218,31 +218,30 @@ class Game {
     // move in dir
     let direction = char.directions[char.nextDir];
     char.nextDir = ((char.nextDir + 1) % (char.directions.length)) || 0;
-    if(direction) {
-      // move
-      let size = direction.size;
-      let newPos;
-      let moves = [];
-      //console.log('prev pos', char.pos);
-      //console.log('direction', direction);
-      while(size--) {
-        let nextPos = this.getNewPos(newPos || char.pos, direction.dir);
-        if(this.getInPos(nextPos)) {
-          //console.log('stop', 'pos is occupied by', this.getInPos(nextPos));
-          break;
-        } else {
-          newPos = nextPos;
-          moves.push(nextPos);
-        }
-      }
-      if(newPos) {
-        char.pos = newPos;
-      }
-      char.dir = direction.dir;
-      this.emit('new-pos', {char, moves});
-    }
 
-    await sleep(3);
+    // move
+    let size = direction.size;
+    let newPos;
+    let moves = [];
+    //console.log('prev pos', char.pos);
+    //console.log('direction', direction);
+    while(size--) {
+      let nextPos = this.getNewPos(newPos || char.pos, direction.dir);
+      if(this.getInPos(nextPos)) {
+        //console.log('stop', 'pos is occupied by', this.getInPos(nextPos));
+        break;
+      } else {
+        newPos = nextPos;
+        moves.push(nextPos);
+      }
+    }
+    if(newPos) {
+      char.pos = newPos;
+    }
+    char.dir = direction.dir;
+    this.emit('new-pos', {char, moves});
+
+    await sleep(1 + moves.length / 2);
 
     // find the nearest opp
     let enemy = this.getNearestEnemy(char);

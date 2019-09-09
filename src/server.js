@@ -25,7 +25,7 @@ module.exports = {
         socket.game.pick(socket.id, e.char);
         if(socket.game.bot) {
           setTimeout(() => {
-            let char = pick(game.chars.filter(c => !c.owner));
+            let char = pick(socket.game.chars.filter(c => !c.owner));
             if(char) {
               socket.game.pick(socket.game.bot, char.id);
             }
@@ -35,7 +35,7 @@ module.exports = {
         socket.game.move(socket.id, e.char);
         if(socket.game.bot) {
           setTimeout(() => {
-            let char = pick(game.chars.filter(c => c.hp > 0 && c.owner === socket.game.bot));
+            let char = pick(socket.game.chars.filter(c => c.hp > 0 && c.owner === socket.game.bot));
             if(char) {
               socket.game.move(socket.game.bot, char.id);
             }

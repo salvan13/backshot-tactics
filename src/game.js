@@ -176,7 +176,7 @@ class Game {
       return;
     }
     let c = this.getChar(cid);
-    if(c.owner) {
+    if(!c || c.owner) {
       return;
     }
     c.owner = pid;

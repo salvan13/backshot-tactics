@@ -14,11 +14,33 @@ module.exports = {
       }
     });
 
+    socket.on('bot', () => {
+      let r = rand(10);
+      socket.game.addPlayer('bot' + r, 'Bot-' + r);
+      socket.game.bot = 'bot' + r;
+    });
+
     socket.on('activate', (e) => {
       if(socket.game.state === 'pick') {
         socket.game.pick(socket.id, e.char);
+        if(socket.game.bot) {
+          setTimeout(() => {
+            let char = pick(game.chars.filter(c => !c.owner));
+            if(char) {
+              socket.game.pick(socket.game.bot, char.id);
+            }
+          }, 2000);
+        }
       } else if(socket.game.state === 'play') {
         socket.game.move(socket.id, e.char);
+        if(socket.game.bot) {
+          setTimeout(() => {
+            let char = pick(game.chars.filter(c => c.hp > 0 && c.owner === socket.game.bot));
+            if(char) {
+              socket.game.move(socket.game.bot, char.id);
+            }
+          }, 7000);
+        }
       }
     });
 

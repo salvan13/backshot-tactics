@@ -51,6 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('div.ranking').classList.remove('show');
   });
 
+  document.querySelector('a.bot').addEventListener('click', e => {
+    e.preventDefault();
+    socket.emit('bot');
+  });
+
   let inviteLink = document.querySelector('.wait small a');
   inviteLink.innerHTML = location.href;
   inviteLink.href = location.href;

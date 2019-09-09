@@ -168,6 +168,10 @@ a.ranking {
   color: var(--yellow);
 }
 
+a.bot {
+  margin: 1rem;
+}
+
 .how-info {
   text-align: left;
   overflow: auto;

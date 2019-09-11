@@ -385,6 +385,9 @@ div.ranking .table {
   overflow: auto;
   margin: 1rem;
   text-align: left;
+  max-width: 100%;
+  font-size: 80%;
+  overflow: auto;
 }
 
 thead {

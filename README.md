@@ -9,6 +9,7 @@
 - Multiplayer online
 - Desktop and Mobile
 - Elo based rankings
+- Play VS a bot
 
 
 #### How to play

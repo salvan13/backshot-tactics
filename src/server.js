@@ -96,7 +96,7 @@ module.exports = {
           socket.game.bot = 'bot' + r;
           console.log(name + ' autoplay against bot ' + r);
         }
-      }, 5 * 1000);
+      }, 120 * 1000);
     }
 
     socket.game = game;

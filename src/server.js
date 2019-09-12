@@ -45,7 +45,7 @@ module.exports = {
       }
     });
 
-    console.log('connected', socket.id, name);
+    console.log('connected', socket.id, name, JSON.stringify(socket.handshake));
     sockets[socket.id] = socket;
 
     if(!game || game.isFull()) {

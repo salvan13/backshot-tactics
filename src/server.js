@@ -5,7 +5,7 @@ module.exports = {
   io: (socket) => {
     let name = socket.handshake.query.name;
     socket.on('disconnect', () => {
-      console.log('disconnected', socket.id);
+      console.log('disconnected', socket.id, name);
       delete sockets[socket.id];
       if(!socket.game.isFull()) {
         game = null;
@@ -18,6 +18,7 @@ module.exports = {
       let r = rand(10);
       socket.game.addPlayer('bot' + r, 'Bot-' + r);
       socket.game.bot = 'bot' + r;
+      console.log(name + ' play against bot ' + r);
     });
 
     socket.on('activate', (e) => {
@@ -87,6 +88,15 @@ module.exports = {
         }
       });
       console.log('new game', game.id);
+
+      setTimeout(() => {
+        if(socket.game.state === 'wait') {
+          let r = rand(10);
+          socket.game.addPlayer('bot' + r, 'Bot-' + r);
+          socket.game.bot = 'bot' + r;
+          console.log(name + ' autoplay against bot ' + r);
+        }
+      }, 5 * 1000);
     }
 
     socket.game = game;

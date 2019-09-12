@@ -72,8 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     socket.on('disconnect', () => {
       console.log('disconnected');
-      field.remove();
-      document.body.classList.remove('connected');
+      location.reload();
     });
 
     socket.on('state', (e) => {

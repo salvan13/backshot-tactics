@@ -4,8 +4,13 @@ let game = null;
 module.exports = {
   io: (socket) => {
     let name = socket.handshake.query.name;
+    let createdGameAutostartTimeout;
+
     socket.on('disconnect', () => {
       console.log('disconnected', socket.id, name);
+      if(createdGameAutostartTimeout) {
+        clearTimeout(createdGameAutostartTimeout);
+      }
       delete sockets[socket.id];
       if(!socket.game.isFull()) {
         game = null;
@@ -89,7 +94,7 @@ module.exports = {
       });
       console.log('new game', game.id);
 
-      setTimeout(() => {
+      createdGameAutostartTimeout = setTimeout(() => {
         if(socket.game.state === 'wait') {
           let r = rand(10);
           socket.game.addPlayer('bot' + r, 'Bot-' + r);

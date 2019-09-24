@@ -20,3 +20,6 @@
   - It shots the nearest opponent damaging him by **distance between them * 3** (bullets doesn't wrap the field)
   - If the opponent is hit on the **back side** the damage is **tripled**
 - Kill all the enemy ships to win
+
+#### Credits
+- piXelize font - http://xfragg3r.deviantart.com/art/piXelize-font-78478588

@@ -69,7 +69,7 @@ input:focus {
 }
 
 h1 {
-  font-size: 2.5rem;
+  font-size: 4rem;
   color: var(--red);
   text-shadow: 0.2rem 0.2rem var(--gray);
 }
@@ -147,10 +147,6 @@ body.connected[data-state="game-over"] main {
   justify-content: space-around;
   align-items: center;
   text-align: center;
-}
-
-.splash span a {
-  color: var(--yellow);
 }
 
 form.start {
